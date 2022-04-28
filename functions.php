@@ -43,7 +43,10 @@
     }
 
 
-    function getToken($id, $pwd) {
+    function getToken() {
+        $id = getPseudo();
+        $pwd = getPassword();
+        
         $url = "141.95.153.155".getFloor()."/inscription";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -64,11 +67,9 @@
     function regularGet() {
 
         $dest = "/".getUrl();
-        $id = getPseudo();
-        $pwd = getPassword();
 
         $url = "141.95.153.155".getFloor().$dest;
-        $headers = array("X-Auth-Token: ".getToken($id, $pwd));
+        $headers = array("X-Auth-Token: ".getToken());
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, getMethod());

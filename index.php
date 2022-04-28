@@ -10,7 +10,7 @@ include "functions.php";
         <div class="header">Paramètres :</div> 
         <div id="haut-contenu">
             <div>Identifiant : <input name="pseudo" value="<?php echo getPseudo() ?>"></div>
-            <div>Mot de passe : <input name="password" <?php echo getPassword() ?>></div>
+            <div>Mot de passe : <input name="password" value="<?php echo getPassword() ?>"></div>
             <div>Etage : 
                 <select name="port" id="portForm" onchange="checkPort()" >
                     <option <?php if(getFloor() == "") {echo "selected";} ?> value="">0</option>
