@@ -1,0 +1,87 @@
+html {
+    background-color: aqua;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+
+}
+
+#haut {
+    height: 12%;
+    background-color: aliceblue;
+    width: 100%;
+    border: black solid 5px;
+}
+
+#haut-contenu {
+    padding-left: 15%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+#milieu {
+    height: 58%;
+    width: 100%;
+    display: flex;
+    border: black solid 5px;
+}
+
+#gauche {
+    background-color: black;
+    color: white;
+    width: 50%;
+}
+
+#gauche-contenu {
+    height: 80%;
+    padding: 0 10%;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+}
+
+#droite {
+    background-color: lightslategrey;
+    color: white;
+    width: 50%;
+}
+
+#droite-contenu {
+    height: 80%;
+    padding: 0 10%;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+}
+
+#bas {
+    height: 26.5%;
+    background-color: violet;
+    width: 100%;
+    border: black solid 5px;
+}
+
+.header {
+    margin-left: 20px;
+    margin-top: 10px;
+    font-size: 28px;
+}
+
+#urlInput {
+    background-color: transparent;
+    border: none;
+    color: white;
+    border-bottom: white 1px solid;
+    font-size: 26px;
+}
+
+#urlInput:focus {
+    outline: none;
+}
