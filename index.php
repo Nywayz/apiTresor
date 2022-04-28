@@ -2,7 +2,6 @@
 <link rel="stylesheet" href="reset.css">
 <link rel="stylesheet" href="styles.css">
 <?php 
-include "text.php";
 include "functions.php";
 
 

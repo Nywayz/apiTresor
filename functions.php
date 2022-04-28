@@ -1,38 +1,40 @@
 <?php 
 
     function getPseudo() {
-        if(!is_null($_GET["pseudo"])){
+        if(isset($_GET["pseudo"])){
             return $_GET["pseudo"];
         }
     }
 
     function getMethod() {
-        if(!is_null($_GET["method"])){
+        if(isset($_GET["method"])){
             return $_GET["method"];
         }
         else return "GET";
     }
 
     function getPassword() {
-        if(!is_null($_GET["password"])){
+        if(isset($_GET["password"])){
             return $_GET["password"];
         }
     }
 
     function getUrl() {
-        if(!is_null($_GET["url"])){
+        if(isset($_GET["url"])){
             return $_GET["url"];
         }
     }
 
     function getFloor() {
-        switch ($_GET["port"]) {
-            case 8000:
-                return ":8000";
-            case 7259:
-                return ":7259";
-            default:
-                return "";
+        if(isset($_GET["port"])){
+            switch ($_GET["port"]) {
+                case 8000:
+                    return ":8000";
+                case 7259:
+                    return ":7259";
+                default:
+                    return "";
+            }
         }
     }
 
