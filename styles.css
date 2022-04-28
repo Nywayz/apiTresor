@@ -63,9 +63,46 @@ html {
 
 #bas {
     height: 26.5%;
-    background-color: violet;
     width: 100%;
+    display: flex;
     border: black solid 5px;
+}
+
+#bas-gauche {
+    background-color: violet;
+    width: 80%;
+    font-size: 26px;
+    
+}
+
+#bas-gauche-contenu {
+    padding: 0 4%;
+    height: 70%;
+    color:aliceblue;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    text-align: center;
+
+}
+
+#bas-droite {
+    background-color: purple;
+    width: 20%;
+    color: aliceblue;
+    font-size: 26px;
+    
+}
+
+#bas-droite-contenu {
+    margin-left: 20px;
+    margin-top: 10px;
+    padding: 0 4%;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
 }
 
 .header {
@@ -124,3 +161,7 @@ html {
 ul {
     align-self: flex-start;
 }
+
+.petit-texte {
+    font-size: 16px;
+} 

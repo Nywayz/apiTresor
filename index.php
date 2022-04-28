@@ -51,7 +51,14 @@ include "functions.php";
         </div>
     </div>
     <div id="bas">
-        <div class="header">Commentaire :</div> 
+        <div id="bas-gauche">
+            <div class="header">Notes :</div> 
+            <div id="bas-gauche-contenu"><?php echo getComment() ?></div>
+        </div>
+        <div id="bas-droite">
+            <div class="header">Coffres :</div>
+            <div id="bas-droite-contenu"><?php echo getScore() ?></div>
+        </div>
     </div>
 </form>
 </html>
