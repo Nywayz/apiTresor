@@ -5,56 +5,64 @@
 include "text.php";
 include "functions.php";
 
-$url = "141.95.153.155";
-$username = "Mac";
-$password = "Le";
-$firstFloor = "a3ede5167386f919fb25f74ed2920cc3d0e647f8";
-$secondFloor = "fbd63e4bf6234541c5f03cdced9ca63e1ee53d94";
-$thirdFloor = "4155d4fd83965db86a5c328c81e8a86244212724";
 
-
- ?>
+ ?><form action="index.php" method="GET">
     <div id="haut">
-        <div class="header">Headers :</div> 
+        <div class="header">Paramètres :</div> 
         <div id="haut-contenu">
-            <div>Identifiant : <input></div>
-            <div>Mot de passe : <input></div>
+            <div>Identifiant : <input name="pseudo" value="<?php echo getPseudo() ?>"></div>
+            <div>Mot de passe : <input name="password" <?php echo getPassword() ?>></div>
             <div>Etage : 
-                <select id="portForm" onchange="checkPort()" >
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
+                <select name="port" id="portForm" onchange="checkPort()" >
+                    <option <?php if(getFloor() == "") {echo "selected";} ?> value="">0</option>
+                    <option <?php if(getFloor() == ":8000") {echo "selected";} ?> value="8000">1</option>
+                    <option <?php if(getFloor() == ":7259") {echo "selected";} ?> value="7259">2</option>
                 </select>
             </div>
+            <div></div>
+            <div></div>
+            <div></div>
             <div></div>
             <div></div>
         </div>
     </div>
     <div id="milieu">
         <div id="gauche">
-            <div class="header">Requête :</div> 
+            <div class="header">Créateur de requête :</div> 
             <div id="gauche-contenu">
+                <select name="method" id="method">
+                    <option <?php if(getMethod() == "GET") {echo "selected";}?> value="GET">GET</option>
+                    <option <?php if(getMethod() == "POST") {echo "selected";}?> value="POST">POST</option>
+                    <option <?php if(getMethod() == "PUT") {echo "selected";}?> value="PUT">PUT</option>
+                    <option <?php if(getMethod() == "DELETE") {echo "selected";}?> value="DELETE">DELETE</option>
+                </select>
                 <div id="port"></div>
-                <input id="urlInput">
+                <input name="url" id="urlInput" value="<?php echo getUrl() ?>" onkeydown="enter(this.value)">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="submit" id="boutonEntree" value="↩">
             </div>
         </div>
         <div id="droite">
             <div class="header">Réponse :</div> 
-            <div id="droite-contenu"><?php echo(regularGet("/escalier", $username, $password, 1));?></div>
+            <div id="droite-contenu">
+                <div id="oldRequest"><?php echo(getRequest())?></div><br/><br/>
+                <?php echo(regularGet());?>
+            </div>
         </div>
     </div>
     <div id="bas">
         <div class="header">Commentaire :</div> 
     </div>
+</form>
 </html>
 
 <script>
     function checkPort() {
         switch(document.getElementById("portForm").value){
-            case "1":
+            case "8000":
                 document.getElementById("port").innerHTML = "141.95.153.155:8000/"
             break;
-            case "2":
+            case "7259":
                 document.getElementById("port").innerHTML = "141.95.153.155:7259/"
             break;
             default:
@@ -63,5 +71,20 @@ $thirdFloor = "4155d4fd83965db86a5c328c81e8a86244212724";
         }
     }
     checkPort()
+
+    let check = "s"
+
+    function enter(value) {
+        if (check == value){
+            document.getElementById("boutonEntree").click
+            console.log("dd")
+        }
+        check = value
+    }
+
+    function setFocus() {
+        document.getElementById("urlInput").focus()
+    }
+    setFocus()
 </script>
 
