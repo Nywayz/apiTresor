@@ -67,6 +67,8 @@
     function regularGet() {
 
         $dest = "/".getUrl();
+        $id = getPseudo();
+        $pwd = getPassword();
 
         $url = "141.95.153.155".getFloor().$dest;
         $headers = array("X-Auth-Token: ".getToken());
@@ -75,6 +77,7 @@
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, getMethod());
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_POSTFIELDS, "idempotent"); 
+        curl_setopt($ch, CURLOPT_USERPWD, "$id:$pwd");
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $response = curl_exec($ch);
         curl_close($ch);
@@ -110,7 +113,7 @@
         $pwd = getPassword();
 
         $url = "141.95.153.155".getFloor()."/reset";
-        $headers = array("X-Auth-Token: ".getToken($id, $pwd));
+        $headers = array("X-Auth-Token: ".getToken());
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
@@ -130,12 +133,39 @@
         $url = "141.95.153.155";
     }
 
+    function getSub() {
+        $fusion = getUrl();
+        switch($fusion) {
+            case "inscription";
+                return '<p>Header de réponse : "x-header-token : '.getToken().'"</p>';
+        }
+    }
+
+    function getOptions() {
+        $dest = "/".getUrl();
+
+        $url = "141.95.153.155".getFloor().$dest;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        $headers = array("X-Auth-Token: ".getToken());
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "OPTIONS");
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $html = "";
+        foreach(array_values(json_decode($response, true))[0] as $value){
+            $html .= " ".$value;
+        }
+        return $html;
+    }
+
     function getComment() {
         $fusion = getFloor();
         $fusion .= getUrl();
         switch($fusion){
             case "inscription":
-                return "L'identifiant et le mot de passe doivent être rentrés dans les headers. <br/><br/> Le header de réponse contient un token qui permet de s'identifier par la suite plus simplement. <br/><br/> Sur cette interface tout est fait automatiquement en fond mais un token différent est distribué à chaque étage !";
+                return "L'identifiant et le mot de passe doivent être rentrés dans les headers qui seront encodé en base64 avant d'être communiqués au serveur. <br/><br/> Le header de réponse contient un token qui permet de s'identifier par la suite plus simplement. <br/><br/> Sur cette interface tout est fait automatiquement en fond mais un token différent est distribué à chaque étage !";
             break;
             case "reset":
                 return "L'écran des scores ainsi que la date de début sont ici.<br/><br/> Pour plus de simplicité les coffres seront égalements indiqués en bas à droite via un appel à cette route en parallèle !";
@@ -169,7 +199,7 @@
                 return "Chaque étage répond à un port différent et on découvre le suivant ici. <br/><br/> Pour simplifier le système, l'interface permet de changer le port en fonction de l'étage auquel on souhaite accéder.";
             break;
             case ":8000vieux":
-                return 'Ce vieil homme est un sage... En effet il existe une différence fondamentale entre POST et PUT est celle-ci est que POST est une méthode idempotente !<br/><br/> Ce mot signifie que quoiqu\'il arrive, une requête POST entrainera toujours la même action. <br/> En entrant le mot "idempotent" avec une requête POST, on obtient un coffre !<br/><br/>Mais que se passe-t-il si l\'on essaie une nouvelle fois ? Eh bien un coffre apparait encore ! <br/>Au passage la requête PUT remplace une donnée si elle est déjà existante et entraine donc une étape de vérification !';
+                return 'Ce vieil homme est un sage... En effet il existe une différence fondamentale entre POST et PUT est celle-ci est que PUT est une méthode idempotente !<br/><br/> Ce mot signifie que quoiqu\'il arrive, une requête PUT cherchera à faire la même chose. <br/> En entrant le mot "idempotent" avec une requête POST qui elle crée des enfants à chaque appel, on obtient un coffre !<br/><br/>Mais que se passe-t-il si l\'on essaie une nouvelle fois ? Eh bien un coffre apparait encore ! <br/>Au passage la requête PUT remplace une donnée si elle est déjà existante et ce à l\'infini !';
             break;
             case ":8000note":
                 return "C'était simple et juste sous notre nez mais au premier étage (au port par défaut) se trouve un coffre au... /tresor !";
@@ -184,7 +214,7 @@
             case ":7259":
                 return "Le dernier étage avec un... dragon ?!<br/><br/> Une dernière méthode est disponible sur l'interface, vous souvenez-vous de laquelle ?";
             break;case ":7259dragon":
-                return "Encore un conseil avisé. Mais que se passerait-il si nous utilisions la méthode DELETE ?<br/><br/> Cette méthode comme son nom l'indique sert à supprimer des ressources ou... des dragons. Cependant le plus souvent la supression n'en est pas une au sens propre !<br/><br/> La plupart du temps une supression vaut simplement la supression de l'accès à la ressource mais elle reste en mémoire pour des besoins de comptabilité ou légaux. Ce dragon attendra le prochain utilisateur !";
+                return "Encore un conseil avisé. Mais que se passerait-il si nous utilisions la méthode DELETE ?<br/><br/> Cette méthode comme son nom l'indique sert à supprimer des ressources ou... des dragons.<br/><br/> En utilisant le verbe OPTIONS, on peut voir que l'utilisation de DELETE est en effet possible pour trouver le dernier coffre";
             break;
 
 

@@ -7,7 +7,7 @@ include "functions.php";
 
  ?><form action="index.php" method="GET">
     <div id="haut">
-        <div class="header">Paramètres :</div> 
+        <div class="header">Headers & port :</div> 
         <div id="haut-contenu">
             <div>Identifiant : <input name="pseudo" value="<?php echo getPseudo() ?>"></div>
             <div>Mot de passe : <input name="password" value="<?php echo getPassword() ?>"></div>
@@ -18,8 +18,7 @@ include "functions.php";
                     <option <?php if(getFloor() == ":7259") {echo "selected";} ?> value="7259">2</option>
                 </select>
             </div>
-            <div></div>
-            <div></div>
+            <div>Token obtenu : <?php echo getToken() ?></div>
             <div></div>
             <div></div>
             <div></div>
@@ -34,6 +33,7 @@ include "functions.php";
                     <option <?php if(getMethod() == "POST") {echo "selected";}?> value="POST">POST</option>
                     <option <?php if(getMethod() == "PUT") {echo "selected";}?> value="PUT">PUT</option>
                     <option <?php if(getMethod() == "DELETE") {echo "selected";}?> value="DELETE">DELETE</option>
+                    <option <?php if(getMethod() == "OPTIONS") {echo "selected";}?> value="OPTIONS">OPTIONS</option>
                 </select>
                 <div id="port"></div>
                 <input name="url" id="urlInput" value="<?php echo getUrl() ?>" onkeydown="enter(this.value)">
@@ -44,8 +44,8 @@ include "functions.php";
         <div id="droite">
             <div class="header">Réponse :</div> 
             <div id="droite-contenu">
-                <div id="oldRequest"><?php echo(getRequest())?></div><br/><br/>
-                <?php echo(regularGet());?>
+                <div id="oldRequest"><?php echo(getRequest()); echo "<br/>Méthodes disponibles :".getOptions();?></div><br/><br/>
+                <?php echo(regularGet()); echo(getSub())?>
             </div>
         </div>
     </div>
